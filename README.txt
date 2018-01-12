@@ -4,4 +4,4 @@ To make sure that the comparison makes sense, we use only one datasource so we a
 
 In general, what we found is that the overhead of JTA/XA is negligible in case of network delays to the backend resource (i.e., not using a collacated DBMS). When collocated, our results were a bit slower because connection reuse is delayed until the transaction completes (which takes slightly longer than with plain JDBC).
 
-This shows that for realistic scenarios (where the backend is separate from the application) there is virtually NO overhead in using JTA/XA.
+This shows that for realistic scenarios (where the backend is separate from the application) there is virtually NO overhead in using JTA/XA. So you basically get reliability for free!
