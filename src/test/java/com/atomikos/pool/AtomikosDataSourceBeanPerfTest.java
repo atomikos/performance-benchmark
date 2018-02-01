@@ -15,6 +15,8 @@ import com.atomikos.jdbc.AtomikosDataSourceBean;
 
 public class AtomikosDataSourceBeanPerfTest extends CommonDataSourceTest {
 
+	
+
 	private UserTransaction userTransaction;
 
 	@Before
@@ -25,17 +27,17 @@ public class AtomikosDataSourceBeanPerfTest extends CommonDataSourceTest {
 		//getConfigProperties().setProperty("com.atomikos.icatch.default_jta_timeout","30000");
 		userTransaction = new com.atomikos.icatch.jta.UserTransactionImp();
 		AtomikosDataSourceBean ds = new AtomikosDataSourceBean();
-		ds.setUniqueResourceName("resourceName");
+		ds.setUniqueResourceName(DB_NAME);
 		ds.setXaDataSourceClassName("org.postgresql.xa.PGXADataSource");
 		ds.setConcurrentConnectionValidation(true);
 		Properties props = new Properties();
-		props.put("ServerName", "192.168.0.12");
+		props.put("ServerName", HOST);
 		props.put("PortNumber", "5432");
-		props.put("DatabaseName", "atomikos");
-		props.put("User", "atomikos");
-		props.put("Password", "atomikos");
+		props.put("DatabaseName", DB_NAME);
+		props.put("User", USER);
+		props.put("Password", PASSWORD);
 		ds.setXaProperties(props);
-		ds.setPoolSize(20);
+		ds.setPoolSize(POOL_SIZE);
 		ds.setTestQuery("SELECT 1");
 		ds.init();
 		prepareData(ds);

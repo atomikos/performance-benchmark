@@ -12,11 +12,11 @@ public class HikariCPPerfTest extends CommonDataSourceTest {
 	public void setUp() throws Exception {
 		HikariDataSource ds = new HikariDataSource();
 		ds.setDriverClassName("org.postgresql.Driver");
-		ds.setJdbcUrl("jdbc:postgresql://192.168.0.12/atomikos");
-		ds.setUsername("atomikos");
-		ds.setPassword("atomikos");
-		ds.setMinimumIdle(20);
-		ds.setMaximumPoolSize(20);
+		ds.setJdbcUrl("jdbc:postgresql://"+HOST+"/"+DB_NAME);
+		ds.setUsername(USER);
+		ds.setPassword(PASSWORD);
+		ds.setMinimumIdle(POOL_SIZE);
+		ds.setMaximumPoolSize(POOL_SIZE);
 		ds.setConnectionTestQuery("SELECT 1");
 		prepareData(ds);
 		this.ds = ds;

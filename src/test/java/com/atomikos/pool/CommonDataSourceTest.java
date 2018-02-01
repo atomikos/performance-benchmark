@@ -11,7 +11,15 @@ import javax.sql.DataSource;
 abstract class CommonDataSourceTest {
 
 	protected static final int NB_THREADS = 50;
-	protected static final int NB_TRANSACTIONS_PER_THREAD = 500;
+	protected static final int NB_TRANSACTIONS_PER_THREAD = 100;
+	protected static final int POOL_SIZE = NB_THREADS/2;
+	
+	
+	protected static final String DB_NAME = "atomikos";
+	protected static final String USER = "atomikos";
+	protected static final String PASSWORD = "atomikos";
+	protected static final String HOST = "192.168.0.12";
+
 	protected DataSource ds;
 
 	protected void prepareData(DataSource ds) throws SQLException {

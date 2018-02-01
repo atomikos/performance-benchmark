@@ -11,10 +11,10 @@ public class DBCP2PerfTest extends CommonDataSourceTest {
 	public void setUp() throws Exception {
 		BasicDataSource ds = new BasicDataSource();
 		ds.setDriverClassName("org.postgresql.Driver");
-		ds.setUrl("jdbc:postgresql://192.168.0.12/atomikos");
-		ds.setUsername("atomikos");
-		ds.setPassword("atomikos");
-		ds.setMaxTotal(20);
+		ds.setUrl("jdbc:postgresql://"+HOST+"/"+DB_NAME);
+		ds.setUsername(USER);
+		ds.setPassword(PASSWORD);
+		ds.setMaxTotal(POOL_SIZE);
 		ds.setValidationQuery("SELECT 1");
 		prepareData(ds);
 		this.ds = ds;
