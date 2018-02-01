@@ -16,7 +16,7 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<!-- <runOrder>alphabetical</runOrder> -->
+					<runOrder>random</runOrder> 
 					<reuseForks>false</reuseForks>
 					<forkCount>1</forkCount>
 				</configuration>
