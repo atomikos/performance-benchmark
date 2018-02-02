@@ -1,16 +1,17 @@
 package com.atomikos.pool;
 
-import java.util.logging.Logger;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.zaxxer.hikari.HikariDataSource;
 
 public class HikariCPPerfTest extends CommonDataSourceTest {
 
-	private static final Logger LOGGER = Logger.getLogger("Hikari");
+	private static final Logger LOGGER = LoggerFactory.getLogger("Hikari");
 	@Before
 	public void setUp() throws Exception {
 		HikariDataSource ds = new HikariDataSource();

@@ -1,15 +1,16 @@
 package com.atomikos.pool;
 
-import java.util.logging.Logger;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DBCP2PerfTest extends CommonDataSourceTest {
 
-	private static final Logger LOGGER = Logger.getLogger("Dbcp");
+	private static final Logger LOGGER = LoggerFactory.getLogger("Dbcp");
 	@Before
 	public void setUp() throws Exception {
 		BasicDataSource ds = new BasicDataSource();

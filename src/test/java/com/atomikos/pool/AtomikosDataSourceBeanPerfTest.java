@@ -3,20 +3,21 @@ package com.atomikos.pool;
 import static com.atomikos.icatch.config.Configuration.getConfigProperties;
 
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import javax.transaction.UserTransaction;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.atomikos.icatch.config.Configuration;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
 
 public class AtomikosDataSourceBeanPerfTest extends CommonDataSourceTest {
 
-	private static final Logger LOGGER = Logger.getLogger("Atomikos");
+	private static final Logger LOGGER = LoggerFactory.getLogger("Atomikos");
 
 	private UserTransaction userTransaction;
 
@@ -85,7 +86,6 @@ public class AtomikosDataSourceBeanPerfTest extends CommonDataSourceTest {
 		for (int j = 0; j < threads.length; j++) {
 			threads[j].join();
 		}
-		//System.out.println("NB transactions per seconds "+(NB_THREADS*NB_TRANSACTIONS_PER_THREAD)*1000/((System.currentTimeMillis() - start)));
 		LOGGER.info(""+(NB_THREADS*NB_TRANSACTIONS_PER_THREAD)*1000/((System.currentTimeMillis() - start)));
 		
 

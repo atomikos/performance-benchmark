@@ -1,4 +1,4 @@
-<configuration>
+<configuration debug="true">
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
@@ -7,14 +7,14 @@
 		</encoder>
 	</appender>
 
-	<appender name="Atomikos" class="ch.qos.logback.core.FileAppender">
+	<appender name="Atomikos-FILE" class="ch.qos.logback.core.FileAppender">
 		<file>Atomikos.log</file>
 		<encoder>
 			<pattern>%msg;</pattern>
 		</encoder>
 	</appender>
 	<logger name="Atomikos" level="INFO">
-		<appender-ref ref="Atomikos" />
+		<appender-ref ref="Atomikos-FILE" />
 	</logger>
 
 	<appender name="Hikari" class="ch.qos.logback.core.FileAppender">
@@ -36,17 +36,6 @@
 	<logger name="Dbcp" level="INFO">
 		<appender-ref ref="Dbcp" />
 	</logger>
-
-	<appender name="SimpleDataSourceBean" class="ch.qos.logback.core.FileAppender">
-		<file>SimpleDataSourceBean.log</file>
-		<encoder>
-			<pattern>%msg;</pattern>
-		</encoder>
-	</appender>
-	<logger name="SimpleDataSourceBean" level="INFO">
-		<appender-ref ref="SimpleDataSourceBean" />
-	</logger>
-	
 
 
 	<root level="ERROR">

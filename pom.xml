@@ -53,7 +53,6 @@
 			<version>1.10.19</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
@@ -65,12 +64,6 @@
 			<artifactId>commons-dbcp2</artifactId>
 			<version>2.2.0</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>com.atomikos</groupId>
-			<artifactId>simple-connection-pool</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency> -->
-
 
 		<!-- the JTA API -->
 		<dependency>
