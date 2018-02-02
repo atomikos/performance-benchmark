@@ -1,5 +1,7 @@
 package com.atomikos.pool;
 
+import java.util.logging.Logger;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.After;
 import org.junit.Before;
@@ -7,6 +9,7 @@ import org.junit.Test;
 
 public class DBCP2PerfTest extends CommonDataSourceTest {
 
+	private static final Logger LOGGER = Logger.getLogger("Dbcp");
 	@Before
 	public void setUp() throws Exception {
 		BasicDataSource ds = new BasicDataSource();
@@ -39,21 +42,18 @@ public class DBCP2PerfTest extends CommonDataSourceTest {
 
 			}
 		};
-		long start = System.currentTimeMillis();
+		
 		Thread[] threads = new Thread[NB_THREADS];
 		for (int i = 0; i < threads.length; i++) {
 			threads[i] = new Thread(r);
 		}
-
+		long start = System.currentTimeMillis();
 		for (int j = 0; j < threads.length; j++) {
 			threads[j].start();
 		}
 		for (int j = 0; j < threads.length; j++) {
 			threads[j].join();
 		}
-		System.out.println("NB transactions per seconds "
-				+ (NB_THREADS * NB_TRANSACTIONS_PER_THREAD * 1000)
-				/ ((System.currentTimeMillis() - start)));
-
+		LOGGER.info(""+(NB_THREADS*NB_TRANSACTIONS_PER_THREAD)*1000/((System.currentTimeMillis() - start)));
 	}
 }

@@ -1,5 +1,7 @@
 package com.atomikos.pool;
 
+import java.util.logging.Logger;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +10,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class HikariCPPerfTest extends CommonDataSourceTest {
 
+	private static final Logger LOGGER = Logger.getLogger("Hikari");
 	@Before
 	public void setUp() throws Exception {
 		HikariDataSource ds = new HikariDataSource();
@@ -41,21 +44,18 @@ public class HikariCPPerfTest extends CommonDataSourceTest {
 
 			}
 		};
-		long start = System.currentTimeMillis();
+		
 		Thread[] threads = new Thread[NB_THREADS];
 		for (int i = 0; i < threads.length; i++) {
 			threads[i] = new Thread(r);
 		}
-
+		long start = System.currentTimeMillis();
 		for (int j = 0; j < threads.length; j++) {
 			threads[j].start();
 		}
 		for (int j = 0; j < threads.length; j++) {
 			threads[j].join();
 		}
-		System.out.println("NB transactions per seconds "
-				+ (NB_THREADS * NB_TRANSACTIONS_PER_THREAD * 1000)
-				/ ((System.currentTimeMillis() - start)));
-
+		LOGGER.info(""+(NB_THREADS*NB_TRANSACTIONS_PER_THREAD)*1000/((System.currentTimeMillis() - start)));
 	}
 }

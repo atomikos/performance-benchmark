@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.UUID;
+import java.util.Random;
 
 import javax.sql.DataSource;
 
@@ -25,30 +25,27 @@ abstract class CommonDataSourceTest {
 	protected void prepareData(DataSource ds) throws SQLException {
 		Connection conn = ds.getConnection();
 		Statement s = conn.createStatement();
-		try {
-			s.executeQuery("select * from Accounts");
-		} catch (SQLException ex) {
-			// table not there => create it
+			s.executeUpdate("drop table if exists accounts");
 			System.err.println("Creating Accounts table...");
-			s.executeUpdate("create table Accounts (account VARCHAR ( 200 ), owner VARCHAR(300), balance DECIMAL (19,0) )");
-		}
+			s.executeUpdate("create table accounts ( "
+					+ " account INTEGER, owner VARCHAR(300), balance BIGINT )");
+			for (int i = 0; i < NB_TRANSACTIONS_PER_THREAD; i++) {
+				s.executeUpdate("insert into Accounts values ( " + i + " , 'owner" + i + "', 10000 )");
+			}
+
 		s.close();
 		conn.close();
 	}
 
 	protected void performSQL() throws SQLException {
-		String  account = UUID.randomUUID().toString();
+		Random rand = new Random();
 		Connection c = ds.getConnection();
-		PreparedStatement insertStmt = c.prepareStatement("insert into Accounts values ( ? ,  ?, 10000 )");
-		insertStmt.setString(1, account);
-		insertStmt.setString(2, account);
-		insertStmt.execute();
-		insertStmt.close();
-		PreparedStatement deleteStmt = c
-				.prepareStatement("delete from Accounts where account = ?");
-		deleteStmt.setString(1, account);
-		deleteStmt.execute();
-		deleteStmt.close();
+		PreparedStatement s = c
+				.prepareStatement("update Accounts set balance = balance + ? where account = ?");
+		s.setInt(1, rand.nextInt());
+		s.setInt(2, rand.nextInt(NB_TRANSACTIONS_PER_THREAD));
+		s.execute();
+		s.close();
 		c.close();
 	}
 
