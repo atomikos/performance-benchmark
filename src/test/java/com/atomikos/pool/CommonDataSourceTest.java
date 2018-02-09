@@ -18,7 +18,7 @@ abstract class CommonDataSourceTest {
 	protected static final String DB_NAME = "atomikos";
 	protected static final String USER = "atomikos";
 	protected static final String PASSWORD = "atomikos";
-	protected static final String HOST = "192.168.0.12";
+	protected static final String HOST = "192.168.0.42";
 
 	protected DataSource ds;
 
@@ -37,15 +37,21 @@ abstract class CommonDataSourceTest {
 		conn.close();
 	}
 
-	protected void performSQL() throws SQLException {
+	protected void performSQL(boolean nonXa) throws SQLException {
 		Random rand = new Random();
 		Connection c = ds.getConnection();
+		if(nonXa) {
+			c.setAutoCommit(false);	
+		}
 		PreparedStatement s = c
 				.prepareStatement("update Accounts set balance = balance + ? where account = ?");
 		s.setInt(1, rand.nextInt());
 		s.setInt(2, rand.nextInt(NB_TRANSACTIONS_PER_THREAD));
-		s.execute();
+		s.executeUpdate();
 		s.close();
+		if(nonXa) {
+			c.commit();	
+		}
 		c.close();
 	}
 

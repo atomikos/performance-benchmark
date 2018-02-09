@@ -60,7 +60,7 @@ public class AtomikosDataSourceBeanPerfTest extends CommonDataSourceTest {
 					for (int count = 0; count < NB_TRANSACTIONS_PER_THREAD; count++) {
 						try {
 						userTransaction.begin();
-						performSQL();
+						performSQL(false);
 						userTransaction.commit();  //success !
 						} catch (Exception e) {
 							e.printStackTrace();

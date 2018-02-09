@@ -37,7 +37,7 @@ public class HikariCPPerfTest extends CommonDataSourceTest {
 			public void run() {
 				for (int count = 0; count < NB_TRANSACTIONS_PER_THREAD; count++) {
 					try {
-						performSQL();
+						performSQL(true);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
